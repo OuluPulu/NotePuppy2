@@ -90,33 +90,12 @@ ApplicationWindow {
     }
 
 
-
-
-    Dialog {
+    NewFileDialog {
         id: newFileDialog;
-
+        title: "Plz enter a name for the file"
         width: 3/4*root.width; height: 3/4*root.height
-
-        Column {
-            anchors.fill: parent
-            TreeView {
-                // There surely must be an easier way of doing this though.
-                height: newFileDialog.height - 80;
-                width: newFileDialog.width - 60;
-                id: trumpet;
-                TableViewColumn {
-                    title: "File:"
-                    role: "fileName"
-                }
-                model: FileSystemModel
-            }
-            Text {
-                text: "dickbutt"
-            }
-        }
-//        standardButtons: StandardButton.Save | StandardButton.Cancel
-standardButtons: StandardButton.Ok | StandardButton.Cancel
     }
+
 
 
     function makeNewFile() {
