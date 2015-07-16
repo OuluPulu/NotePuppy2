@@ -22,12 +22,15 @@ public:
     PuppyFileSystemModel *fileSystemModel() { return m_fileSystemModel; }
 
     Q_INVOKABLE QVariant getSetting(QString setting, QString defaultValue = "");
+    Q_INVOKABLE bool checkFile(QString filename);
+    Q_INVOKABLE QString evaluateFile(QString directory, QString file);
+
+    Q_INVOKABLE QString directorizeFile(QString filename);
 
 signals:
     void rootDirChanged();
 
 public slots:
-
 
 private:
     QString m_rootDir;
