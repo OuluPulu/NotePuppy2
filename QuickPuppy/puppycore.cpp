@@ -34,7 +34,10 @@ void PuppyCore::setRootDir(QString rootDir)
 QString PuppyCore::directorizeFile(QString filename)
 {
     QFileInfo finfo(filename);
-    return finfo.absolutePath();
+    if (finfo.isFile())
+        return finfo.absolutePath();
+    else
+        return filename;
 }
 
 QString PuppyCore::evaluateFile(QString directory, QString file)
