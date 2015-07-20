@@ -5,7 +5,8 @@ QT += qml quick widgets
 SOURCES += main.cpp \
     puppycore.cpp \
     puppyfilesystemmodel.cpp \
-    puppyfile.cpp
+    puppyfile.cpp \
+    node.cpp
 
 RESOURCES += qml.qrc
 
@@ -18,4 +19,5 @@ include(deployment.pri)
 HEADERS += \
     puppycore.h \
     puppyfilesystemmodel.h \
-    puppyfile.h
+    puppyfile.h \
+    node.h

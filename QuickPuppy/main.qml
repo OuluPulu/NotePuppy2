@@ -78,17 +78,17 @@ ApplicationWindow {
 
         TableViewColumn {
             title: "File:"
-            role: "fileName"
+            role: "filename"
             width: (5/8 * root.width)
         }
         TableViewColumn {
             title: "Size"
-            role: "fileSize"
+            role: "filesize"
             width: (1/8 * root.width)
         }
         TableViewColumn {
             title: "Date Modified"
-            role: "fileUpdateTime"
+            role: "updateTime"
             width: (1/4 * root.width)
         }
 

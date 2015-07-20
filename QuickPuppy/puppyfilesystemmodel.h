@@ -3,12 +3,17 @@
 
 #include <QFileSystemModel>
 
-// QFileSystemModel adds the path to the start of the file tree.
-// It makes the FileTree hideous.
-// But it's easier to deal with this hideous feature FOR NOW.
-// TODO Remove the QFileSystemWatcher's ugly full-path nonsense
-// maybe port the original NotePuppy file tree thing over.
-class PuppyFileSystemModel : public QFileSystemModel
+#include "node.h"
+
+
+// A similar result could be achieved by subclassing the
+// QFileSystemModel.
+// This is not used because it adds the parent directories
+// to the base of the tree, which is something I totally
+// don't want. And as you can see, it's not *that* hard
+// to add things in.....
+// TODO add filesystemwatcher feature.
+class PuppyFileSystemModel : public QAbstractItemModel
 {
     Q_OBJECT
 public:
@@ -18,15 +23,37 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     Q_INVOKABLE QString getFilePath(const QModelIndex index) const;
 
-    enum extraRoles {
+    QModelIndex index(int row, int column, const QModelIndex &parent) const;
+    QModelIndex parent(const QModelIndex &child) const;
+    int rowCount(const QModelIndex &parent) const;
+    int columnCount(const QModelIndex &parent) const;
+
+    enum Roles {
+        FileIconRole = Qt::DecorationRole,
+        FilePathRole = Qt::UserRole + 1,
+        FileNameRole = Qt::UserRole + 2,
+        FilePermissions = Qt::UserRole + 3,
         FileSize = Qt::UserRole + 4,
         FileUpdateTime = Qt::UserRole + 5,
         FullFilePath = Qt::UserRole + 6
     };
 
-private:
+public slots:
+    void setRootPath(QString rootPath);
 
+protected:
+    QModelIndex indexForNode(Node *node) const;
+    Node* nodeForIndex(const QModelIndex &index) const;
+    int rowForNode(Node *node) const;
+
+private:
+    QString m_rootPath;
     QHash<int, QByteArray> omph;
+
+    void createTree();
+    void expandNode(Node *n);
+
+    Node *m_rootNode;
 };
 
 #endif // PUPPYFILESYSTEMMODEL_H
